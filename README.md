@@ -58,3 +58,8 @@ There are some failure cases Gitlet handles that don't apply to a particular com
   - Each commit contains the date and time it was made.
   - Each commit has a log message associated with it that describes the changes to the files in the commit (specified by the user). The entire message should take up only one entry in the args array that is passed to main. To include multiword messages, surround them in quotes.
   - Each commit is identified by its SHA-1 id, which includes the file (blob) references of its files, parent reference, log message, and commit time.
+
+### rm
+- **Usage**: java gitlet.Main rm [file name]
+- **Description**: Unstages the file if it is currently staged for addition. If the file is tracked in the current commit, stages it for removal and removes the file from the working directory if the user has not already done so (does not remove it unless it is tracked in the current commit).
+- **Failure cases**: If the file is neither staged nor tracked by the head commit, prints the error message "No reason to remove the file." and exits.
