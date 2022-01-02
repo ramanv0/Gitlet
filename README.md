@@ -159,3 +159,28 @@ Checkout is a command that can do different things depending on what its argumen
   - If no branch with that name exists, prints "No such branch exists." If that branch is the current branch, prints "No need to checkout the current branch." If a working file is untracked in the current branch and would be overwritten by the checkout, prints "There is an untracked file in the way; delete it, or add and commit it first." and exits.
 
 - **Differences from Git**: Git does not clear the staging area and stages the file that is checked out. Also, Git will not do a checkout that would overwrite or undo changes (additions or removals) that have been staged.
+
+### branch
+- **Usage**: java gitlet.Main branch [branch name]
+- **Description**: Creates a new branch with the given name, and points it at the current head node. This command does NOT immediately switch to the newly created branch, as in real Git.
+- **Failure cases**: If a branch with the given name already exists, prints the error message "A branch with that name already exists." and exits.
+
+### rm-branch
+- **Usage**: java gitlet.Main rm-branch [branch name]
+- **Description**: Deletes the branch with the given name. This only means to delete the pointer associated with the given branch; it does not mean to delete all commits that were created under the branch.
+- **Failure cases**: If a branch with the given name does not exist, aborts and prints the error message "A branch with that name does not exist." If the command is invoked on the current branch, aborts and prints the error message "Cannot remove the current branch."
+
+### reset
+- **Usage**: java gitlet.Main reset [commit id]
+- **Description**: Checks out all the files tracked by the given commit. Removes tracked files that are not present in that commit. Also moves the current branch's head to that commit node. The [commit id] may be abbreviated as for checkout. The staging area is cleared. The command is essentially checkout of an arbitrary commit that also changes the current branch head.
+- **Failure case**: If no commit with the given id exists, prints "No commit with that id exists." and exits. If a working file is untracked in the current branch and would be overwritten by the reset, prints "There is an untracked file in the way; delete it, or add and commit it first." and exits.
+- **Differences from Git**: This command is closest to using the --hard option, as in git reset --hard [commit hash].
+
+### merge
+- **Usage**: java gitlet.Main merge [branch name]
+- **Description**: Merges files from the given branch into the current branch.
+- **Failure cases**: If there are staged additions or removals present, prints the error message "You have uncommitted changes." and exits. If a branch with the given name does not exist, prints the error message "A branch with that name does not exist." and exits. If attempting to merge a branch with itself, prints the error message "Cannot merge a branch with itself." and exits.
+- **Differences from Git**: 
+  - Git does a more subtle job of merging files, displaying conflicts only in places where both files have changed since the split point (the latest common ancestor of the current and given branch heads). 
+  - Git will force the user to resolve merge conflicts before committing in order to complete the merge. 
+  - Git will complain if there are unstaged changes to a file that would be changed by a merge.
