@@ -10,7 +10,7 @@ The main functionality that Gitlet supports is:
 - Merging changes made in one branch into another (command: merge).
 
 ## Internal Structures
-Gitlet distinguishes several different kinds of objects. The important ones are:
+Gitlet distinguishes several different kinds of objects. The main ones are:
 - blobs: Essentially the contents of files.
 - trees: Directory structures mapping names to references to blobs and other trees (subdirectories).
 - commits: Combinations of log messages, other metadata (commit date, author, etc.), a reference to a tree, and references to parent commits. The repository also maintains a mapping from branch heads (in this course, we've used names like master, proj2, etc.) to references to commits, so that certain important commits have symbolic names.
@@ -27,11 +27,11 @@ Here is an example illustrating the structures used in Gitlet. As can be seen in
 ![commits-and-blobs](https://user-images.githubusercontent.com/76065183/147873738-5ab89393-6b31-4279-a983-e8578fba6711.png)
 
 ## General Failure Cases
-There are some failure cases Gitlet handles that don't apply to a particular command. They are:
-- If a user doesn't input any arguments, prints the message "Please enter a command." and exits.
-- If a user inputs a command that doesn't exist, prints the message "No command with that name exists." and exits.
-- If a user inputs a command with the wrong number or format of operands, prints the message "Incorrect operands." and exits.
-- If a user inputs a command that requires being in an initialized Gitlet working directory (i.e., one containing a .gitlet subdirectory), but is not in such a directory, prints the message "Not in an initialized Gitlet directory." and exits.
+There are some failure cases Gitlet handles that don't apply to a particular command. These are:
+- If a user doesn't input any arguments, Gitlet prints the message "Please enter a command." and exits.
+- If a user inputs a command that doesn't exist, Gitlet prints the message "No command with that name exists." and exits.
+- If a user inputs a command with the wrong number or format of operands, Gitlet prints the message "Incorrect operands." and exits.
+- If a user inputs a command that requires being in an initialized Gitlet working directory (i.e., one containing a .gitlet subdirectory), but is not in such a directory, Gitlet prints the message "Not in an initialized Gitlet directory." and exits.
 
 ## Commands
 ### init
