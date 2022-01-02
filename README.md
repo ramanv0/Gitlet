@@ -63,3 +63,36 @@ There are some failure cases Gitlet handles that don't apply to a particular com
 - **Usage**: java gitlet.Main rm [file name]
 - **Description**: Unstages the file if it is currently staged for addition. If the file is tracked in the current commit, stages it for removal and removes the file from the working directory if the user has not already done so (does not remove it unless it is tracked in the current commit).
 - **Failure cases**: If the file is neither staged nor tracked by the head commit, prints the error message "No reason to remove the file." and exits.
+
+### log
+- **Usage**: java gitlet.Main log
+- **Description**: Starting at the current head commit, displays information about each commit backwards along the commit tree until the initial commit, following the first parent commit links, ignoring any second parents found in merge commits i.e. displays the head commit's history. (Same as the *git log --first-parent* command in regular Git). For every commit node in this history, the information displayed is the commit id, the time the commit was made, and the commit message. Here is an example of the exact format the **log** command follows:
+
+       ===  
+       commit a0da1ea5a15ab613bf9961fd86f010cf74c7ee48  
+       Date: Thu Nov 9 20:00:05 2017 -0800  
+       A commit message.  
+
+       ===  
+       commit 3e8bf1d794ca2e9ef8a4007275acf3751c7170ff  
+       Date: Thu Nov 9 17:01:33 2017 -0800  
+       Another commit message.  
+
+       ===  
+       commit e881c9575d180a215d1a636545b8fd9abfb1d2bb  
+       Date: Wed Dec 31 16:00:00 1969 -0800  
+       initial commit  
+   
+  There is a === before each commit and an empty line after it. As in real Git, each entry displays the unique SHA-1 id of the commit object. The timestamps displayed in the commits reflect the current timezone, not UTC; as a result, the timestamp for the initial commit in the above example does not read Thursday, January 1st, 1970, 00:00:00, but rather the equivalent Pacific Standard Time.
+  
+  For merge commits (those that have two parent commits), **log** adds a line just below the first, as in:
+  
+       ===  
+       commit 3e8bf1d794ca2e9ef8a4007275acf3751c7170ff  
+       Merge: 4975af1 2c1ead1  
+       Date: Sat Nov 11 12:30:00 2017 -0800  
+       Merged development into master.
+   
+  where the two hexadecimal numerals following "Merge:" consist of the first seven digits of the first and second parents' commit ids, in that order. The first parent is the current branch when the **merge** command was executed; the second is that of the merged-in branch (as in regular Git).
+
+- **Failure cases**: None
