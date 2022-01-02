@@ -28,10 +28,10 @@ Here is an example illustrating the structures used in Gitlet. As can be seen in
 
 ## General Failure Cases
 There are some failure cases Gitlet handles that don't apply to a particular command. They are:
-- If a user doesn't input any arguments, print the message "Please enter a command." and exit.
-- If a user inputs a command that doesn't exist, print the message "No command with that name exists." and exit.
-- If a user inputs a command with the wrong number or format of operands, print the message "Incorrect operands." and exit.
-- If a user inputs a command that requires being in an initialized Gitlet working directory (i.e., one containing a .gitlet subdirectory), but is not in such a directory, print the message "Not in an initialized Gitlet directory." and exit.
+- If a user doesn't input any arguments, prints the message "Please enter a command." and exits.
+- If a user inputs a command that doesn't exist, prints the message "No command with that name exists." and exits.
+- If a user inputs a command with the wrong number or format of operands, prints the message "Incorrect operands." and exits.
+- If a user inputs a command that requires being in an initialized Gitlet working directory (i.e., one containing a .gitlet subdirectory), but is not in such a directory, prints the message "Not in an initialized Gitlet directory." and exits.
 
 ## Commands
 ### init
