@@ -96,3 +96,46 @@ There are some failure cases Gitlet handles that don't apply to a particular com
   where the two hexadecimal numerals following "Merge:" consist of the first seven digits of the first and second parents' commit ids, in that order. The first parent is the current branch when the **merge** command was executed; the second is that of the merged-in branch (as in regular Git).
 
 - **Failure cases**: None
+
+### global-log
+- **Usage**: java gitlet.Main global-log
+- **Description**: Like log, except displays information about all commits ever made, in no specific order.
+- **Failure cases**: None
+
+### find
+- **Usage**: java gitlet.Main find [commit message]
+- **Description**: Prints out the ids of all commits that have the given commit message, one per line. If there are multiple such commits, prints the ids out on separate lines. The commit message is a single operand; to indicate a multiword message, put the operand in quotation marks, as for the **commit** command above.
+- **Failure cases**: If no such commit exists, prints the error message "Found no commit with that message." and exits.
+- **Differences from Git**: Doesn't exist in real Git. Similar effects can be achieved by grepping the output of log.
+
+### status
+- **Usage**: java gitlet.Main status
+- **Description**: Displays what branches currently exist, and marks the current branch with a *. Also displays what files have been staged for addition or removal. The following is an example of the exact format the **status** command follows:
+
+      === Branches ===
+      *master
+      other-branch
+
+      === Staged Files ===
+      wug.txt
+      wug2.txt
+
+      === Removed Files ===
+      goodbye.txt
+
+      === Modifications Not Staged For Commit ===
+      junk.txt (deleted)
+      wug3.txt (modified)
+
+      === Untracked Files ===
+      random.stuff
+
+  There is an empty line between sections. Entries are listed in lexicographic order, using the Java string-comparison order (the asterisk does not count). A file in the working directory is "modified but not staged" if it is:
+    - Tracked in the current commit, changed in the working directory, but not staged; or
+    - Staged for addition, but with different contents than in the working directory; or
+    - Staged for addition, but deleted in the working directory; or
+    - Not staged for removal, but tracked in the current commit and deleted from the working directory.
+
+  The final category ("Untracked Files") is for files present in the working directory but neither staged for addition nor tracked. This includes files that have been staged for removal, but then re-created without Gitlet's knowledge. Any subdirectories that may have been introduced are ignored, since Gitlet does not deal with them.
+
+- **Failure cases**: None
