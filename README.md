@@ -139,3 +139,23 @@ There are some failure cases Gitlet handles that don't apply to a particular com
   The final category ("Untracked Files") is for files present in the working directory but neither staged for addition nor tracked. This includes files that have been staged for removal, but then re-created without Gitlet's knowledge. Any subdirectories that may have been introduced are ignored, since Gitlet does not deal with them.
 
 - **Failure cases**: None
+
+### checkout
+Checkout is a command that can do different things depending on what its arguments are. There are 3 possible use cases (each bullet point below corresponds to a use case):
+
+- **Usages**:
+  - java gitlet.Main checkout -- [file name]
+  - java gitlet.Main checkout [commit id] -- [file name]
+  - java gitlet.Main checkout [branch name]
+
+- **Descriptions**:
+  - Takes the version of the file as it exists in the head commit, the front of the current branch, and puts it in the working directory, overwriting the version of the file that's already there if there is one. The new version of the file is not staged.
+  - Takes the version of the file as it exists in the commit with the given id, and puts it in the working directory, overwriting the version of the file that's already there if there is one. The new version of the file is not staged.
+  - Takes all files in the commit at the head of the given branch, and puts them in the working directory, overwriting the versions of the files that are already there if they exist. Also, at the end of this command, the given branch will now be considered the current branch (HEAD). Any files that are tracked in the current branch but are not present in the checked-out branch are deleted. The staging area is cleared, unless the checked-out branch is the current branch (see Failure cases below).
+
+- **Failure cases**:
+  - If the file does not exist in the previous commit, aborts and prints the error message "File does not exist in that commit."
+  - If no commit with the given id exists, prints "No commit with that id exists." Otherwise, if the file does not exist in the given commit, prints the same message as for the first failure case.
+  - If no branch with that name exists, prints "No such branch exists." If that branch is the current branch, prints "No need to checkout the current branch." If a working file is untracked in the current branch and would be overwritten by the checkout, prints "There is an untracked file in the way; delete it, or add and commit it first." and exits.
+
+- **Differences from Git**: Git does not clear the staging area and stages the file that is checked out. Also, Git won't do a checkout that would overwrite or undo changes (additions or removals) that have been staged.
