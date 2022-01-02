@@ -1,10 +1,7 @@
-package gitlet;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 /** Driver class for Gitlet, the tiny stupid version-control system.
  *  @author Raman Varma

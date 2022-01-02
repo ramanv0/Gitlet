@@ -1,5 +1,3 @@
-package gitlet;
-
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -17,7 +15,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
-
 
 /** Assorted utilities.
  *  @author P. N. Hilfinger
