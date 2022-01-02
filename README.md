@@ -44,4 +44,17 @@ There are some failure cases Gitlet handles that don't apply to a particular com
 - **Description**: Adds a copy of the file as it currently exists to the staging area (see the description of the **commit** command). Staging an already-staged file overwrites the previous entry in the staging area with the new contents. The staging area is contained within the .gitlet directory. If the current working version of the file is identical to the version in the current commit, does not stage it to be added, and removes it from the staging area if it is already there (as can happen when a file is changed, added, and then changed back). The file will no longer be staged for removal (see the **rm** command), if it was at the time of the command.
 - **Failure cases**: If the file does not exist, prints the error message "File does not exist." and exits without changing anything.
 
+### commit
+- **Usage**: java gitlet.Main commit [message]
+- **Description**: Saves a snapshot of tracked files in the current commit and staging area so they can be restored at a later time, creating a new commit. By default, each commit's snapshot of files will be exactly the same as its parent commit's snapshot of files; it will keep versions of files exactly as they are, and not update them. A commit will only update the contents of files it is tracking that have been staged for addition at the time of commit, in which case the commit will now include the version of the file that was staged instead of the version it got from its parent. A commit will save and start tracking any files that were staged for addition but weren't tracked by its parent. Finally, files tracked in the current commit may be untracked in the new commit as a result of being staged for removal by the **rm** command (below).
+- **Failure cases**: If no files have been staged, aborts. Prints the message "No changes added to the commit." Every commit must have a non-blank message. If it doesn't, prints the error message "Please enter a commit message." It is not a failure for tracked files to be missing from the working directory or changed in the working directory.
 
+  Some additional points about **commit**:
+  - The staging area is cleared after a commit.
+  - The commit command never adds, changes, or removes files in the working directory (other than those in the .gitlet directory). The **rm** command will remove such files, as well as staging them for removal, so that they will be untracked after a commit.
+  - Any changes made to files after staging for addition or removal are ignored by the **commit** command, which only modifies the contents of the .gitlet directory.
+  - After the commit command, the new commit is added as a new node in the commit tree.
+  - The commit just made becomes the "current commit", and the head pointer now points to it. The previous head commit is this commit's parent commit.
+  - Each commit contains the date and time it was made.
+  - Each commit has a log message associated with it that describes the changes to the files in the commit (specified by the user). The entire message should take up only one entry in the args array that is passed to main. To include multiword messages, surround them in quotes.
+  - Each commit is identified by its SHA-1 id, which includes the file (blob) references of its files, parent reference, log message, and commit time.
