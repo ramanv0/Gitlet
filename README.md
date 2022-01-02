@@ -13,7 +13,7 @@ The main functionality that Gitlet supports is:
 Gitlet distinguishes several different kinds of objects. The main ones are:
 - **blobs**: Essentially the contents of files.
 - **trees**: Directory structures mapping names to references to blobs and other trees (subdirectories).
-- **commits**: Combinations of log messages, other metadata (commit date, author, etc.), a reference to a tree, and references to parent commits. The repository also maintains a mapping from branch heads (in this course, we've used names like master, proj2, etc.) to references to commits, so that certain important commits have symbolic names.
+- **commits**: Combinations of log messages, other metadata (commit date, author, etc.), a reference to a tree, and references to parent commits. The repository also maintains a mapping from branch heads to references to commits, so that certain important commits have symbolic names.
 
 Gitlet further simplifies Git by:
 - Incorporating trees into commits and not dealing with subdirectories (so there will be one "flat" directory of plain files for each repository).
@@ -158,4 +158,4 @@ Checkout is a command that can do different things depending on what its argumen
   - If no commit with the given id exists, prints "No commit with that id exists." Otherwise, if the file does not exist in the given commit, prints the same message as for the first failure case.
   - If no branch with that name exists, prints "No such branch exists." If that branch is the current branch, prints "No need to checkout the current branch." If a working file is untracked in the current branch and would be overwritten by the checkout, prints "There is an untracked file in the way; delete it, or add and commit it first." and exits.
 
-- **Differences from Git**: Git does not clear the staging area and stages the file that is checked out. Also, Git won't do a checkout that would overwrite or undo changes (additions or removals) that have been staged.
+- **Differences from Git**: Git does not clear the staging area and stages the file that is checked out. Also, Git will not do a checkout that would overwrite or undo changes (additions or removals) that have been staged.
