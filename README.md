@@ -11,9 +11,9 @@ The main functionality that Gitlet supports is:
 
 ## Internal Structures
 Gitlet distinguishes several different kinds of objects. The main ones are:
-- blobs: Essentially the contents of files.
-- trees: Directory structures mapping names to references to blobs and other trees (subdirectories).
-- commits: Combinations of log messages, other metadata (commit date, author, etc.), a reference to a tree, and references to parent commits. The repository also maintains a mapping from branch heads (in this course, we've used names like master, proj2, etc.) to references to commits, so that certain important commits have symbolic names.
+- **blobs**: Essentially the contents of files.
+- **trees**: Directory structures mapping names to references to blobs and other trees (subdirectories).
+- **commits**: Combinations of log messages, other metadata (commit date, author, etc.), a reference to a tree, and references to parent commits. The repository also maintains a mapping from branch heads (in this course, we've used names like master, proj2, etc.) to references to commits, so that certain important commits have symbolic names.
 
 Gitlet further simplifies Git by:
 - Incorporating trees into commits and not dealing with subdirectories (so there will be one "flat" directory of plain files for each repository).
