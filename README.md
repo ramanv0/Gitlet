@@ -179,6 +179,27 @@ Checkout is a command that can do different things depending on what its argumen
 ### merge
 - **Usage**: java gitlet.Main merge [branch name]
 - **Description**: Merges files from the given branch into the current branch.
+- **A more detailed description**:
+  - The term *split point*, which is used frequently in the forthcoming detailed description of the **merge** command, refers to the latest common ancestor of the current and given branch heads:
+    - A common ancestor is a commit to which there is a path (of 0 or more parent pointers) from both branch heads.
+    - A latest common ancestor is a common ancestor that is not an ancestor of any other common ancestor.
+    - If the split point is the same commit as the given branch, then the merge is complete, and the operation ends with the message "Given branch is an ancestor of the current branch." If the split point is the current branch, then the effect is to **checkout** the given branch, and the operation ends with the message "Current branch fast-forwarded."
+  - Any files that have been modified in the given branch since the split point but not modified in the current branch since the split point are changed to their versions in the given branch (checked out from the commit at the front of the given branch). These files are then all automatically staged.
+  - Any files that have been modified in the current branch but not in the given branch since the split point remain unchanged.
+  - Any files that have been modified in both the current and given branch in the same way (i.e. both files now have the same content or were both removed) are left unchanged by **merge**. If a file was removed from both the current and given branch, but a file of the same name is present in the working directory, it is left alone and continues to be absent (not tracked nor staged) in the merge.
+  - Any files that were not present at the split point and are present only in the current branch remain unchanged.
+  - Any files that were not present at the split point and are present only in the given branch are checked out and staged.
+  - Any files present at the split point, unmodified in the current branch, and absent in the given branch are removed (and untracked).
+  - Any files present at the split point, unmodified in the given branch, and absent in the current branch remain absent.
+  - Any files modified in different ways in the current and given branches are in conflict. "Modified in different ways" means that the contents of both are changed and different from other, or the contents of one are changed and the other file is deleted, or the file was absent at the split point and has different contents in the given and current branches. In this case, **merge** replaces the contents of the conflicted file with
+
+        <<<<<<< HEAD  
+        contents of file in current branch  
+        =======  
+        contents of file in given branch
+
+    (replacing "contents of..." with the indicated file's contents) and stages the result.
+  - Once files have been updated according to the above, and the split point was not the current branch or the given branch, **merge** automatically commits with the log message "Merged [given branch name] into [current branch name]." Then, if the merge encountered a conflict, it prints the message "Encountered a merge conflict." on the terminal (not the log). Merge commits differ from other commits: They record as parents both the head of the current branch and the head of the branch given on the command line to be merged in.
 - **Failure cases**: If there are staged additions or removals present, prints the error message "You have uncommitted changes." and exits. If a branch with the given name does not exist, prints the error message "A branch with that name does not exist." and exits. If attempting to merge a branch with itself, prints the error message "Cannot merge a branch with itself." and exits.
 - **Differences from Git**: 
   - Git does a more subtle job of merging files, displaying conflicts only in places where both files have changed since the split point (the latest common ancestor of the current and given branch heads). 
