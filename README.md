@@ -196,7 +196,8 @@ Checkout is a command that can do different things depending on what its argumen
         <<<<<<< HEAD  
         contents of file in current branch  
         =======  
-        contents of file in given branch
+        contents of file in given branch  
+        >>>>>>>
 
     (replacing "contents of..." with the indicated file's contents) and stages the result.
   - Once files have been updated according to the above, and the split point was not the current branch or the given branch, **merge** automatically commits with the log message "Merged [given branch name] into [current branch name]." Then, if the merge encountered a conflict, it prints the message "Encountered a merge conflict." on the terminal (not the log). Merge commits differ from other commits: They record as parents both the head of the current branch and the head of the branch given on the command line to be merged in.
