@@ -203,5 +203,5 @@ Checkout is a command that can do different things depending on what its argumen
 - **Failure cases**: If there are staged additions or removals present, prints the error message "You have uncommitted changes." and exits. If a branch with the given name does not exist, prints the error message "A branch with that name does not exist." and exits. If attempting to merge a branch with itself, prints the error message "Cannot merge a branch with itself." and exits.
 - **Differences from Git**: 
   - Git does a more subtle job of merging files, displaying conflicts only in places where both files have changed since the split point (the latest common ancestor of the current and given branch heads). 
-  - Git will force the user to resolve merge conflicts before committing in order to complete the merge. 
+  - Git will force the user to resolve merge conflicts before committing to complete the merge. 
   - Git will complain if there are unstaged changes to a file that would be changed by a merge.
