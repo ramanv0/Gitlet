@@ -206,3 +206,37 @@ Checkout is a command that can do different things depending on what its argumen
   - Git does a more subtle job of merging files, displaying conflicts only in places where both files have changed since the split point (the latest common ancestor of the current and given branch heads). 
   - Git will force the user to resolve merge conflicts before committing to complete the merge. 
   - Git will complain if there are unstaged changes to a file that would be changed by a merge.
+
+## Demo
+The image below will take you to a demo of Gitlet, which covers most of the implemented commands.
+[![click here for the demo](https://img.youtube.com/vi/JJqjlyz3BIc/0.jpg)](https://www.youtube.com/watch?v=JJqjlyz3BIc)
+
+The commands executed in the demo create the following directed acyclic graph of commits:
+<img width="732" alt="commits-dag" src="https://user-images.githubusercontent.com/76065183/148028748-63dfb8c9-eb57-4bbb-85cc-3f8c7d5b937a.png">  
+where the solid lines are first parents, the dashed lines are merged-in parents, and the commits pointed to by blue arrows are latest common ancestors.
+
+Here is a summary of the commands executed in the demo:
+
+    java gitlet.Main init
+    java gitlet.Main branch branch
+    java gitlet.Main status
+    [various edits and additions...]
+    java gitlet.Main commit "B"
+    java gitlet.Main checkout branch
+    java gitlet.Main status
+    [various edits and additions...]
+    java gitlet.Main commit "C"
+    java gitlet.Main branch temp
+    java gitlet.Main status
+    java gitlet.Main merge master  # Create commit F
+    [various edits and additions...]
+    java gitlet.Main commit "H"
+    java gitlet.Main checkout master
+    java gitlet.Main status
+    [various edits and additions...]
+    java gitlet.Main commit "D"
+    java gitlet.Main merge temp    # Create commit E
+    [various edits and additions...]
+    java gitlet.Main commit "G"
+    java gitlet.Main log
+    java gitlet.Main checkout
