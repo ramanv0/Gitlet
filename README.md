@@ -228,14 +228,14 @@ Here is a summary of the commands executed in the demo:
     java gitlet.Main commit "C"
     java gitlet.Main branch temp
     java gitlet.Main status
-    java gitlet.Main merge master  # Create commit F
+    java gitlet.Main merge master  # Creates commit F
     [various edits and additions...]
     java gitlet.Main commit "H"
     java gitlet.Main checkout master
     java gitlet.Main status
     [various edits and additions...]
     java gitlet.Main commit "D"
-    java gitlet.Main merge temp    # Create commit E
+    java gitlet.Main merge temp    # Creates commit E
     [various edits and additions...]
     java gitlet.Main commit "G"
     java gitlet.Main log
